@@ -22,6 +22,8 @@ La aplicación permite al usuario:
 
 El objetivo principal del proyecto es demostrar la implementación práctica de patrones de diseño y buenas prácticas de arquitectura de software en una aplicación interactiva.
 
+<img width="1907" height="912" alt="Screenshot 2026-05-06 200909" src="https://github.com/user-attachments/assets/ffd091f5-cdb0-44c2-a6b5-22ba2c4f5d61" />
+
 ---
 
 # Arquitectura Utilizada 🏗️
