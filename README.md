@@ -5,7 +5,7 @@
 - IVAN MENDOZA
 - FELIX SANDOVAL
 - RODRIGO SOTELO
-- YAHIR 
+- YAHIR ORTEGA
 
 ## Descripción del Proyecto
 
