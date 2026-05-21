@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Viaje App - State</title>
+
+  <link rel="stylesheet" href="style.css" />
+
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+  />
+
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+  />
+</head>
+<body>
+
+  <section class="welcome-screen" id="welcomeScreen" role="dialog" aria-modal="true" aria-labelledby="welcomeTitle">
+    <div class="welcome-card">
+      <div class="welcome-brand">
+        <img class="welcome-logo-img" src="logoP.png" alt="Logo" />
+      </div>
+
+      <div class="welcome-copy">
+        <h1 id="welcomeTitle">Tu viaje empieza aqui</h1>
+      </div>
+
+      <form class="welcome-form" id="welcomeForm">
+        <label for="welcomeName">Nombre</label>
+        <div class="welcome-input">
+          <i class="fa-solid fa-user" aria-hidden="true"></i>
+          <input id="welcomeName" type="text" autocomplete="off" placeholder="Invitado" />
+        </div>
+
+        <button class="welcome-submit" type="submit">
+          <i class="fa-solid fa-arrow-right-to-bracket" aria-hidden="true"></i>
+          <span>Entrar</span>
+        </button>
+      </form>
+    </div>
+  </section>
+
+  <main class="main-layout">
+
+    <section class="booking-panel">
+
+      <div class="booking-card">
+
+        <h1>Solicita un viaje</h1>
+
+        <div class="route-box">
+
+          <div class="route-line">
+            <div class="circle-dot"></div>
+            <div class="dotted-line"></div>
+            <div class="square-dot"></div>
+          </div>
+
+          <div class="inputs">
+
+            <div class="input-card">
+              <label>Punto de partida</label>
+              <input
+                type="text"
+                id="origen"
+                value="Real del Mar, Tijuana, B.C."
+              />
+              <button onclick="limpiarCampo('origen')" aria-label="Limpiar punto de partida">
+                <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+              </button>
+            </div>
+
+            <div class="input-card">
+              <label>Destino</label>
+              <input
+                type="text"
+                id="destino"
+                value="Zona Río, Tijuana, B.C."
+              />
+              <button onclick="limpiarCampo('destino')" aria-label="Limpiar destino">
+                <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+              </button>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="ride-selector">
+          <div class="ride-selector-header">
+            <strong>Tipo de viaje</strong>
+            <small id="fareRouteText">Calculando tarifa...</small>
+          </div>
+
+          <div class="fare-options" id="fareOptions"></div>
+        </div>
+
+        <div class="payment-dropdown" id="paymentDropdown">
+          <button
+            class="payment-trigger"
+            type="button"
+            onclick="toggleMetodoPago(event)"
+            aria-expanded="false"
+            aria-controls="paymentMenu"
+          >
+            <span class="payment-left">
+              <i class="fa-solid fa-credit-card" aria-hidden="true"></i>
+              <span>
+                <small>Metodo de pago</small>
+                <strong id="selectedPaymentText">Tarjeta **** 4242</strong>
+              </span>
+            </span>
+            <i class="fa-solid fa-chevron-down payment-chevron" aria-hidden="true"></i>
+          </button>
+
+          <div class="payment-menu" id="paymentMenu">
+            <button
+              class="payment-option active"
+              type="button"
+              onclick="seleccionarMetodoPago('Tarjeta **** 4242', 'fa-credit-card', event)"
+            >
+              <i class="fa-solid fa-credit-card" aria-hidden="true"></i>
+              <span>Tarjeta **** 4242</span>
+            </button>
+
+            <button
+              class="payment-option"
+              type="button"
+              onclick="seleccionarMetodoPago('Efectivo', 'fa-money-bill-wave', event)"
+            >
+              <i class="fa-solid fa-money-bill-wave" aria-hidden="true"></i>
+              <span>Efectivo</span>
+            </button>
+
+            <button
+              class="payment-option"
+              type="button"
+              onclick="seleccionarMetodoPago('Wallet', 'fa-wallet', event)"
+            >
+              <i class="fa-solid fa-wallet" aria-hidden="true"></i>
+              <span>Wallet</span>
+            </button>
+          </div>
+        </div>
+
+        <button class="search-btn" onclick="iniciarFlujo()">
+          <i class="fa-solid fa-magnifying-glass-location" aria-hidden="true"></i>
+          <span>Buscar</span>
+        </button>
+
+
+
+        <div class="event-actions">
+          <button
+            class="event-btn"
+            id="cancelEventBtn"
+            onclick="solicitarCancelacion()"
+            disabled
+          >
+            <i class="fa-solid fa-ban" aria-hidden="true"></i>
+            <span>Cancelar viaje</span>
+          </button>
+
+          <button
+            class="event-btn"
+            id="changeDestinationEventBtn"
+            onclick="solicitarCambioDestino()"
+            disabled
+          >
+            <i class="fa-solid fa-route" aria-hidden="true"></i>
+            <span>Cambiar destino</span>
+          </button>
+
+          <button
+            class="event-btn danger"
+            id="emergencyEventBtn"
+            onclick="solicitarEmergencia()"
+            disabled
+          >
+            <i class="fa-solid fa-triangle-exclamation" aria-hidden="true"></i>
+            <span>Emergencia</span>
+          </button>
+
+          <button
+            class="event-btn"
+            id="refundEventBtn"
+            onclick="solicitarReembolso()"
+            disabled
+          >
+            <i class="fa-solid fa-receipt" aria-hidden="true"></i>
+            <span>Reembolso</span>
+          </button>
+        </div>
+
+        <button class="logout-btn" id="logoutBtn" type="button" title="Cerrar sesion">
+          <i class="fa-solid fa-arrow-right-from-bracket" aria-hidden="true"></i>
+          <span>Cerrar sesion</span>
+        </button>
+
+      </div>
+
+    </section>
+
+    <section class="map-section">
+
+      <div id="map"></div>
+
+      <div class="map-picker">
+        <button
+          class="map-mode-btn active"
+          id="originModeBtn"
+          onclick="seleccionarModoMapa('origen')"
+          title="Marcar punto de partida"
+        >
+          <i class="fa-solid fa-location-dot" aria-hidden="true"></i>
+          <span>Origen</span>
+        </button>
+
+        <button
+          class="map-mode-btn"
+          id="destinationModeBtn"
+          onclick="seleccionarModoMapa('destino')"
+          title="Marcar destino"
+        >
+          <i class="fa-solid fa-flag-checkered" aria-hidden="true"></i>
+          <span>Destino</span>
+        </button>
+      </div>
+
+      <div class="fare-card">
+        <strong id="precioMapa">MXN 168-210</strong>
+        <p id="resumenRuta">9.8 km - 18-22 min</p>
+      </div>
+
+      <div class="status-card" id="statusCard">
+        <div class="radar">
+          <i class="fa-solid fa-location-crosshairs" aria-hidden="true"></i>
+        </div>
+
+        <div class="status-info">
+          <h3 id="estadoTitulo">Listo para buscar</h3>
+          <p id="estadoDescripcion">
+            Ingresa tu viaje y presiona buscar.
+          </p>
+
+          <div class="progress">
+            <div id="progressBar"></div>
+          </div>
+
+          <div class="state-panel">
+            <div class="state-panel-header">
+              <span id="estadoPaso">Estado 1 de 19</span>
+              <button class="state-back-btn" id="backStateBtn" onclick="regresarEstado()">
+                <i class="fa-solid fa-arrow-left" aria-hidden="true"></i>
+                <span>Regresar</span>
+              </button>
+            </div>
+
+            <div class="state-options" id="stateOptions"></div>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+  </main>
+
+  <div class="payment-decision-modal" id="paymentDecisionModal" aria-hidden="true">
+    <div class="payment-decision-dialog" role="dialog" aria-modal="true" aria-labelledby="paymentDecisionTitle">
+      <div class="payment-decision-icon">
+        <i class="fa-solid fa-receipt" aria-hidden="true"></i>
+      </div>
+
+      <h2 id="paymentDecisionTitle">Procesar pago</h2>
+      <p id="paymentDecisionText">Deseas procesar el pago con el metodo seleccionado?</p>
+
+      <div class="payment-decision-actions">
+        <button class="payment-no-btn" type="button" onclick="decidirProcesarPago(false)">
+          No
+        </button>
+        <button class="payment-yes-btn" type="button" onclick="decidirProcesarPago(true)">
+          Si
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="rating-modal" id="ratingModal" aria-hidden="true">
+    <div class="rating-dialog" role="dialog" aria-modal="true" aria-labelledby="ratingTitle">
+      <div class="rating-icon">
+        <i class="fa-solid fa-star" aria-hidden="true"></i>
+      </div>
+
+      <h2 id="ratingTitle">Califica tu viaje</h2>
+      <p>Selecciona una calificacion para cerrar el pedido.</p>
+
+      <div class="rating-stars" id="ratingStars" aria-label="Calificacion del viaje">
+        <button type="button" onclick="seleccionarCalificacion(1)" aria-label="1 estrella">
+          <i class="fa-solid fa-star" aria-hidden="true"></i>
+        </button>
+        <button type="button" onclick="seleccionarCalificacion(2)" aria-label="2 estrellas">
+          <i class="fa-solid fa-star" aria-hidden="true"></i>
+        </button>
+        <button type="button" onclick="seleccionarCalificacion(3)" aria-label="3 estrellas">
+          <i class="fa-solid fa-star" aria-hidden="true"></i>
+        </button>
+        <button type="button" onclick="seleccionarCalificacion(4)" aria-label="4 estrellas">
+          <i class="fa-solid fa-star" aria-hidden="true"></i>
+        </button>
+        <button type="button" onclick="seleccionarCalificacion(5)" aria-label="5 estrellas">
+          <i class="fa-solid fa-star" aria-hidden="true"></i>
+        </button>
+      </div>
+
+      <p class="rating-error" id="ratingError">Elige una calificacion para continuar.</p>
+
+      <button class="rating-submit" type="button" onclick="enviarCalificacion()">
+        Enviar calificacion
+      </button>
+    </div>
+  </div>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="src/js/patterns/state-pattern.js"></script>
+  <script src="src/js/patterns/observer-pattern.js"></script>
+  <script src="src/js/patterns/strategy-pattern.js"></script>
+  <script src="src/js/patterns/factory-pattern.js"></script>
+  <script src="src/js/patterns/command-pattern.js"></script>
+  <script src="src/js/patterns/adapter-pattern.js"></script>
+  <script src="src/js/config/ride-config.js"></script>
+  <script src="src/js/config/map-config.js"></script>
+  <script src="src/js/config/dom-elements.js"></script>
+  <script src="src/js/utils/geo-utils.js"></script>
+  <script src="src/js/ui/map-ui.js"></script>
+  <script src="src/js/ui/global-listeners-ui.js"></script>
+  <script src="src/js/ui/fare-ui.js"></script>
+  <script src="src/js/ui/event-buttons-ui.js"></script>
+  <script src="src/js/ui/state-panel-ui.js"></script>
+  <script src="src/js/ui/rating-ui.js"></script>
+  <script src="src/js/ui/payment-ui.js"></script>
+  <script src="src/js/services/vehicle-animation-service.js"></script>
+  <script src="src/js/services/ride-event-service.js"></script>
+  <script src="src/js/services/driver-service.js"></script>
+  <script src="src/js/services/route-service.js"></script>
+  <script src="src/js/services/ride-flow-service.js"></script>
+  <script src="src/js/services/state-service.js"></script>
+  <script src="src/js/services/map-interaction-service.js"></script>
+  <script src="src/js/services/state-observer-service.js"></script>
+  <script src="src/js/services/ride-command-service.js"></script>
+  <script src="src/js/app/ui-actions.js"></script>
+  <script src="src/js/app/service-actions.js"></script>
+  <script src="src/js/app/ride-actions.js"></script>
+  <script src="src/js/app/modules.js"></script>
+  <script src="src/js/app/map-runtime.js"></script>
+  <script src="src/js/app/lifecycle.js"></script>
+  <script src="src/js/app/public-api.js"></script>
+  <script src="src/js/app/startup.js"></script>
+  <script src="script.js"></script>
+  <script src="src/js/app/welcome-gate.js"></script>
+
+</body>
+</html>
