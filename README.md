@@ -1,197 +1,124 @@
-# Simulación de App de Viajes Tipo Uber 🚖
-
-## Integrantes 👥
-
-- IVAN MENDOZA
-- FELIX SANDOVAL
-- RODRIGO SOTELO
-- YAHIR ORTEGA
-
-## Descripción del Proyecto
-
-Este proyecto consiste en el desarrollo de una aplicación web inspirada en plataformas de transporte como Uber, diseñada para simular el flujo completo de un viaje utilizando distintos patrones de diseño de software y arquitectura MVC.
-
-La aplicación permite al usuario:
-
-- Seleccionar un punto de origen y destino.
-- Elegir el tipo de viaje.
-- Visualizar rutas en un mapa interactivo.
-- Consultar tarifas estimadas.
-- Avanzar dinámicamente entre distintos estados del viaje.
-- Simular el comportamiento completo del proceso de transporte.
-
-El objetivo principal del proyecto es demostrar la implementación práctica de patrones de diseño y buenas prácticas de arquitectura de software en una aplicación interactiva.
-
-<img width="1907" height="912" alt="Screenshot 2026-05-06 200909" src="https://github.com/user-attachments/assets/ffd091f5-cdb0-44c2-a6b5-22ba2c4f5d61" />
+# 🚖 UberITT
 
 ---
 
-# Arquitectura Utilizada 🏗️
+# 👨‍💻 Autores
 
-## MVC (Modelo - Vista - Controlador)
+**IVAN MENDOZA** - 
+**FELIX GUADALUE** - 
+**YAHIR ORTEGA** - 
+**RODRIGO SOTELO** 
 
-El proyecto fue desarrollado utilizando la arquitectura MVC para separar responsabilidades y mejorar la organización del código.
-
-### Model (Modelo)
-
-Se encarga de:
-
-- Manejo de datos del viaje.
-- Estado actual del sistema.
-- Tarifas y rutas.
-- Información del usuario.
-
-### View (Vista)
-
-Representa:
-
-- Interfaz gráfica.
-- Mapa interactivo.
-- Panel lateral.
-- Botones y tarjetas visuales.
-
-### Controller (Controlador)
-
-Gestiona:
-
-- Eventos del usuario.
-- Comunicación entre modelo y vista.
-- Transiciones de estados.
+Proyecto académico — Ingeniería en Sistemas Computacionales.
 
 ---
 
-# Patrones de Diseño Implementados 🎯
+## 📌 Descripción del Proyecto
 
-## 1. Singleton (Creacional)
+UberITT es una aplicación web inspirada en plataformas de transporte como Uber. El sistema simula el flujo completo de un viaje, permitiendo al usuario seleccionar un origen y destino, calcular tarifas, elegir métodos de pago y visualizar el recorrido mediante mapas interactivos.
 
-Se utiliza para mantener una única instancia global encargada de controlar información importante del sistema.
-
-### Aplicaciones dentro del proyecto
-
-- Gestor principal del viaje.
-- Configuración global.
-- Administración del estado actual.
-
-### Ventajas
-
-- Evita múltiples instancias innecesarias.
-- Facilita acceso global.
-- Centraliza información importante.
+El proyecto fue desarrollado utilizando tecnologías web y aplicando distintos patrones de diseño para mejorar la organización, mantenimiento y escalabilidad del sistema.
 
 ---
 
-## 2. Facade (Estructural)
+# 🎯 Objetivo del Proyecto
 
-Se implementa para simplificar la interacción entre múltiples módulos del sistema mediante una interfaz unificada.
-
-### Funciones simplificadas
-
-- Cálculo de tarifas.
-- Actualización del mapa.
-- Gestión de rutas.
-- Cambio de estados.
-
-### Ventajas
-
-- Reduce complejidad.
-- Facilita mantenimiento.
-- Mejora la legibilidad del código.
+Desarrollar una aplicación web interactiva que simule el funcionamiento básico de una plataforma de transporte, implementando patrones de diseño para mejorar la estructura y calidad del software.
 
 ---
 
-## 3. State (Comportamiento)
-
-El patrón principal del proyecto.
-
-Permite cambiar dinámicamente el comportamiento del sistema dependiendo del estado actual del viaje.
-
-### Estados implementados
-
-- Esperando solicitud.
-- Viaje solicitado.
-- Buscando conductor.
-- Conductor asignado.
-- Conductor en camino.
-- Viaje iniciado.
-- Viaje finalizado.
-- Viaje cancelado.
-
-### Ventajas
-
-- Evita grandes estructuras condicionales.
-- Facilita agregar nuevos estados.
-- Mejora escalabilidad y mantenimiento.
-
----
-
-# Compatibilidad de los Patrones 🔗
-
-Los patrones implementados trabajan de manera complementaria:
-
-| Patrón | Función |
-|---|---|
-| MVC | Organización general del sistema |
-| Singleton | Manejo de instancia global |
-| Facade | Simplificación de procesos |
-| State | Control dinámico del flujo del viaje |
-
-La combinación de estos patrones permite construir un sistema modular, mantenible y escalable.
-
----
-
-# Flujo General del Sistema 🔄
-
-1. Usuario selecciona origen y destino.
-2. Sistema calcula la ruta.
-3. Se muestran tarifas disponibles.
-4. Usuario selecciona tipo de viaje.
-5. Se confirma la solicitud.
-6. El sistema busca conductor.
-7. El conductor acepta el viaje.
-8. El viaje inicia.
-9. El viaje finaliza o puede cancelarse.
-
----
-
-# Tecnologías Utilizadas 💻
+# 🛠️ Tecnologías Utilizadas
 
 - HTML5
 - CSS3
 - JavaScript
 - Leaflet.js
-- OpenStreetMap
+- Arquitectura Modular
 
 ---
 
-# Diagramas 📊
+# Diagrama UML
 
-El proyecto incluye:
+<img width="1078" height="1600" alt="WhatsApp Image 2026-05-20 at 5 29 46 PM" src="https://github.com/user-attachments/assets/18335a0d-c2c5-47a4-a534-06f383b0d8af" />
 
-- Diagrama UML
-- Diagrama de procesos
-- Documentación técnica
-- Justificación de patrones
+
+# Diagrama de procesos
+
+<img width="1600" height="385" alt="WhatsApp Image 2026-05-20 at 5 30 11 PM" src="https://github.com/user-attachments/assets/990cec6b-c532-4a23-ab9d-6c3207a9fe0b" />
+
 
 ---
 
-# Capturas del Sistema 🖼️
+# ⚙️ Funcionamiento del Programa
 
-## Pantalla Principal
+El sistema simula el proceso completo de solicitud de un viaje.
+
+<img width="1907" height="912" alt="Screenshot 2026-05-06 200909" src="https://github.com/user-attachments/assets/ffd091f5-cdb0-44c2-a6b5-22ba2c4f5d61" />
+
+## Flujo general
+
+1. El usuario selecciona un punto de origen.
+2. Selecciona un destino.
+3. El sistema calcula la tarifa estimada.
+4. El usuario elige el método de pago.
+5. Se confirma el viaje.
+6. El sistema busca un conductor disponible.
+7. El conductor se dirige al usuario.
+8. El viaje inicia.
+9. El conductor se mueve hacia el destino.
+10. El viaje finaliza y se procesa el pago.
+
+---
+
+# 📚 Patrones de Diseño Utilizados
+
+| Patrón | ¿Para qué se utilizó? | Justificación | Compatibilidad con el proyecto |
+|---|---|---|---|
+| State | Controlar los estados del viaje dentro de la aplicación. | Permite separar la lógica de cada etapa del viaje y evita grandes bloques de condicionales. | Compatible porque el sistema funciona mediante distintas etapas consecutivas. |
+| Strategy | Manejar distintos métodos de pago y cálculos de tarifa. | Permite cambiar algoritmos sin modificar la lógica principal del sistema. | Compatible porque la aplicación maneja diferentes tipos de pago y tarifas dinámicas. |
+| Factory | Crear objetos como conductores, pagos y tipos de viaje. | Centraliza la creación de objetos y mejora la organización del código. | Compatible debido a que el sistema genera distintos objetos constantemente. |
+| Observer | Actualizar automáticamente la interfaz cuando cambia el estado del viaje. | Permite que varios componentes reaccionen automáticamente a cambios del sistema. | Compatible porque la aplicación necesita reflejar cambios en tiempo real. |
+| Command | Encapsular acciones del usuario como comandos ejecutables. | Facilita el control y validación de acciones. | Compatible porque el usuario interactúa constantemente con el sistema. |
+| Adapter | Integrar la librería Leaflet para el manejo de mapas. | Reduce la dependencia directa con librerías externas. | Compatible porque el proyecto utiliza mapas interactivos y rutas. |
+
+---
+
+# 🔄 Compatibilidad Entre los Patrones
+
+Todos los patrones utilizados trabajan en conjunto para mejorar el funcionamiento del sistema.
+
+- **State** controla el flujo del viaje.
+- **Observer** actualiza automáticamente la interfaz.
+- **Strategy** gestiona pagos y tarifas.
+- **Factory** crea los objetos del sistema.
+- **Command** controla acciones del usuario.
+- **Adapter** conecta el sistema con Leaflet y los mapas.
+
+Gracias a esta combinación:
+
+- El código es más limpio.
+- El sistema es más modular.
+- Es más sencillo agregar nuevas funciones.
+- El mantenimiento es más fácil.
+
+---
+
+# 🗺️ Funcionalidades Principales
 
 - Selección de origen y destino.
-- Visualización del mapa.
-- Tarifas dinámicas.
-- Flujo de estados.
-
-> CAPTURAS
-
----
-
-# Objetivo Académico 🎓
-
-Demostrar la aplicación práctica de patrones de diseño y arquitectura de software mediante el desarrollo de un sistema interactivo capaz de manejar múltiples estados dinámicos de manera organizada y eficiente.
+- Visualización de rutas en mapas.
+- Simulación de conductores.
+- Cálculo de tarifas.
+- Métodos de pago.
+- Control de estados del viaje.
+- Actualización dinámica de la interfaz.
 
 ---
 
-# Conclusión ✅
+# ✅ Conclusión
 
+En conclusión, este proyecto me ayudó a entender mejor cómo funcionan los patrones de diseño y cómo se pueden aplicar en una aplicación real. Gracias a los patrones utilizados, el código quedó más organizado, más fácil de entender y más sencillo de mantener.
+
+Además, pude ver cómo cada patrón cumple una función importante dentro del sistema y cómo todos trabajan juntos para mejorar el funcionamiento de la aplicación. También aprendí la importancia de estructurar bien un proyecto para facilitar futuras mejoras o nuevas funciones.
+
+Finalmente, considero que este proyecto fue una buena práctica para reforzar mis conocimientos de programación y comprender mejor el desarrollo de software utilizando buenas prácticas.
